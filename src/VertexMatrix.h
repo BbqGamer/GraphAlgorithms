@@ -1,3 +1,6 @@
+#ifndef VERTEXMATRIX_H
+#define VERTEXMATRIX_H
+
 #include <stdexcept>
 #include "Graph.h"
 #include <iostream>
@@ -14,3 +17,5 @@ public:
     bool areNeighbors(int v, int w);
     int getNumVertices();
 };
+
+#endif

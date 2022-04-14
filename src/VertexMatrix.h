@@ -12,8 +12,9 @@ class VertexMatrix : public Graph {
 
 public:
     VertexMatrix(): matrix{nullptr}, size(0) {};
-    VertexMatrix(int** V, int n): matrix(V), size(n) {};
+    VertexMatrix(int** V, int numVertices): matrix(V), size(numVertices) {};
     ~VertexMatrix();
+
     bool areNeighbors(int v, int w);
     int getNumVertices();
 };

@@ -15,3 +15,7 @@ bool VertexMatrix::areNeighbors(int v, int w) {
     }
     throw std::out_of_range("Vertex out of bounds");
 }
+
+int VertexMatrix::getNumVertices() {
+    return size;
+}

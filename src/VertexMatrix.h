@@ -12,4 +12,5 @@ public:
     VertexMatrix(int** V, int n): matrix(V), size(n) {};
     ~VertexMatrix();
     bool areNeighbors(int v, int w);
+    int getNumVertices();
 };

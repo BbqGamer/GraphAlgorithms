@@ -20,6 +20,7 @@ public:
     bool areNeighbors(int v, int w);
     int getNumVertices();
     void initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed = 0);
+    bool operator==(const EdgeList &g) const;
 };
 
 #endif

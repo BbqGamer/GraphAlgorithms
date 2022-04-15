@@ -16,8 +16,8 @@ public:
 
     bool areNeighbors(int v, int w);
     int getNumVertices();
-    void initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed);
-
+    void initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed=0);
+    bool operator==(const IncidenceList &g) const;
 };
 
 #endif

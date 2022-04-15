@@ -28,3 +28,7 @@ void IncidenceList::initialize(std::vector<int> vertexList, std::vector<std::pai
         }
     }
 }
+
+bool IncidenceList::operator==(const IncidenceList &g) const {
+    return g.iList == iList;
+}

@@ -17,3 +17,7 @@ void EdgeList::initialize(std::vector<int> vertexList, std::vector<std::pair<int
     vList = vertexList;
     eList = edgeList;
 }
+
+bool EdgeList::operator==(const EdgeList &g) const {
+    return g.vList == vList && g.eList == eList;
+}

@@ -52,3 +52,7 @@ void IncidentMatrix::initialize(std::vector<int> vertexList, std::vector<std::pa
         }
     }
 }
+
+bool IncidentMatrix::operator==(const IncidentMatrix &g) const {
+    return g.matrix == matrix;
+}

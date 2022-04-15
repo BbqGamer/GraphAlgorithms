@@ -19,6 +19,19 @@ class EdgeListTest : public ::testing::Test {
     EdgeList* graph;
 };
 
+TEST_F(EdgeListTest, TestConstructorVsInitialize) {
+    std::vector<int> vertexList = {1, 2, 3, 4};
+    std::vector<std::pair<int, int>> edgeList = {{1, 2},
+                                                 {1, 3},
+                                                 {2, 4},
+                                                 {3, 4}};
+
+    EdgeList* graph1 = new EdgeList();
+    graph1->initialize(vertexList, edgeList);
+    EXPECT_EQ(*graph, *graph1);
+    delete graph1;
+}
+
 TEST(EdgeListConstructorTest, TestEmptyConstructor) {
     EdgeList* graph = new EdgeList();
     EXPECT_EQ(graph->getNumVertices(), 0);

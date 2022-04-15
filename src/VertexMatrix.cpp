@@ -42,3 +42,7 @@ void VertexMatrix::initialize(std::vector<int> vertexList, std::vector<std::pair
         }
     }
 }
+
+bool VertexMatrix::operator==(const VertexMatrix &g) const {
+    return g.matrix == matrix;
+}

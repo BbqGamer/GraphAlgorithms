@@ -18,6 +18,20 @@ class IncidenceListTest : public ::testing::Test {
     IncidenceList* graph;
 };
 
+TEST_F(IncidenceListTest, TestConstructorVsInitialize) {
+    std::vector<int> vertexList = {0, 1, 2, 3};
+    std::vector<std::pair<int, int>> edgeList = {{0, 1},
+                                                 {0, 2},
+                                                 {1, 0},
+                                                 {2, 0},
+                                                 {2, 3},
+                                                 {3, 2}};
+    IncidenceList* graph1 = new IncidenceList();
+    graph1->initialize(vertexList, edgeList);
+    EXPECT_EQ(*graph, *graph1);
+    delete graph1;
+}
+
 TEST(IncidenceListConstructorTest, TestEmptyConstructor) {
     IncidenceList* graph = new IncidenceList();
     EXPECT_EQ(graph->getNumVertices(), 0);

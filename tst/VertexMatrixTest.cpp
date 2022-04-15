@@ -16,6 +16,19 @@ class VertexMatrixTest : public ::testing::Test {
     VertexMatrix* graph;
 };
 
+TEST_F(VertexMatrixTest, TestConstructorVsInitialize) {
+    std::vector<int> vertexList = {0, 1, 2};
+    std::vector<std::pair<int, int>> edgeList = {{0, 1},
+                                                 {1, 2},
+                                                 {2, 0},
+                                                 {2, 1}};
+    VertexMatrix* graph1 = new VertexMatrix();
+    graph1->initialize(vertexList, edgeList);
+    EXPECT_EQ(*graph, *graph1);
+    delete graph1;
+}
+
+
 TEST(VertexMatrixConstructorTest, TestEmptyConstructor) {
     VertexMatrix* graph = new VertexMatrix();
     EXPECT_EQ(graph->getNumVertices(), 0);

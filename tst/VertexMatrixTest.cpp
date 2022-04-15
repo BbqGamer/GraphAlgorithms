@@ -35,6 +35,8 @@ TEST(VertexMatrixConstructorTest, TestEmptyMatrixColumns) {
 TEST(VertexMatrixConstructorTest, TestNonSquareMatrix) {
     std::vector<std::vector<int>> adjacencyMatrix = {{1,2},{3,4},{5}};
     EXPECT_THROW(new VertexMatrix(adjacencyMatrix), std::invalid_argument);
+    std::vector<std::vector<int>> adjacencyMatrix2 = {{1,2},{3,4},{5,6}};
+    EXPECT_THROW(new VertexMatrix(adjacencyMatrix), std::invalid_argument);
 }
 
 TEST_F(VertexMatrixTest, VertexMatrixGetNumVertices) {

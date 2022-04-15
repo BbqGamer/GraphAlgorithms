@@ -1,46 +1,57 @@
 #include "gtest/gtest.h"
-#include "VertexMatrix.h"
+#include "IncidentMatrix.h"
 #include <vector>
 
 class IncidentMatrixTest : public ::testing::Test {
  protected:
     void SetUp() override {
-        int a[4][3] = {{0,1},
-                       {1,2},
-                       {2,0},
-                       {2,1}};
+        std::vector<std::vector<int>> incidentMatrix = {{1, 0, 1},
+                                                        {1, 1, 0},
+                                                        {0, 0, 1},
+                                                        {0, 1, 0}};
 
-
-        for (int i = 0; i < 4; i++) {
-            matrix[i] = new int[2];
-            for (int j = 0; j < 2; j++) {
-                matrix[i][j] = a[i][j];
-            }
-        }
-
-        graph = new IncidentMatrix(matrix, 3, 4);
+        graph = new IncidentMatrix(incidentMatrix);
     }
-
     void TearDown() override {
         delete graph;
     }
-
-    int** matrix;
-    VertexMatrix* graph;
+    IncidentMatrix* graph;
 };
 
-TEST_F(IncidentMatrixTest, VertexMatrixGetNumVertices) {
-    EXPECT_EQ(graph->getNumVertices(), 3);
+TEST(IncidentMatrixConstructorTest, TestEmptyConstructor) {
+    IncidentMatrix* graph = new IncidentMatrix();
+    EXPECT_EQ(graph->getNumVertices(), 0);
+    delete graph;
+}
+
+TEST(IncidentMatrixConstructorTest, TestEmptyMatrixRows) {
+    std::vector<std::vector<int>> incidentMatrix = {};
+    EXPECT_THROW(new IncidentMatrix(incidentMatrix), std::invalid_argument);
+}
+
+TEST(IncidentMatrixConstructorTest, TestEmptyMatrixColumns) {
+    std::vector<std::vector<int>> incidentMatrix = {{},{},{}};
+    EXPECT_THROW(new IncidentMatrix(incidentMatrix), std::invalid_argument);
+}
+
+TEST(IncidentMatrixConstructorTest, TestNonSquareMatrix) {
+    std::vector<std::vector<int>> incidentMatrix = {{1,2},{3,4},{5}};
+    EXPECT_THROW(new IncidentMatrix(incidentMatrix), std::invalid_argument);
+}
+
+TEST_F(IncidentMatrixTest, IncidentMatrixGetNumVertices) {
+    EXPECT_EQ(graph->getNumVertices(), 4);
 }
 
 TEST_F(IncidentMatrixTest, TestAreNeighbors) {
     EXPECT_EQ(graph->areNeighbors(0, 1), true);
-    EXPECT_EQ(graph->areNeighbors(1, 1), false);
-    EXPECT_EQ(graph->areNeighbors(2, 2), false);
+    EXPECT_EQ(graph->areNeighbors(0, 3), false);
+    EXPECT_EQ(graph->areNeighbors(1, 2), false);
+    EXPECT_EQ(graph->areNeighbors(1, 3), true);
 }
 
 TEST_F(IncidentMatrixTest, TestAreNeighborsException) {
-    EXPECT_THROW(graph->areNeighbors(0, 3), std::out_of_range);
+    EXPECT_THROW(graph->areNeighbors(0, 4), std::out_of_range);
     EXPECT_THROW(graph->areNeighbors(45, 6123), std::out_of_range);
     EXPECT_THROW(graph->areNeighbors(-1, 1), std::out_of_range);
 }

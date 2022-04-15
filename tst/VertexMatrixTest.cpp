@@ -8,15 +8,33 @@ class VertexMatrixTest : public ::testing::Test {
         std::vector<std::vector<int>> adjacencyMatrix = {{0, 1, 0},
                                                          {0, 0, 1},
                                                          {1, 1, 0}};
-
         graph = new VertexMatrix(adjacencyMatrix);
+    }
+    void TearDown() override {
+        delete graph;
     }
     VertexMatrix* graph;
 };
 
-TEST(VertexMatrixConstructorTest, TestEmpty) {
+TEST(VertexMatrixConstructorTest, TestEmptyConstructor) {
     VertexMatrix* graph = new VertexMatrix();
     EXPECT_EQ(graph->getNumVertices(), 0);
+    delete graph;
+}
+
+TEST(VertexMatrixConstructorTest, TestEmptyMatrixRows) {
+    std::vector<std::vector<int>> adjacencyMatrix = {};
+    EXPECT_THROW(new VertexMatrix(adjacencyMatrix), std::invalid_argument);
+}
+
+TEST(VertexMatrixConstructorTest, TestEmptyMatrixColumns) {
+    std::vector<std::vector<int>> adjacencyMatrix = {{},{},{}};
+    EXPECT_THROW(new VertexMatrix(adjacencyMatrix), std::invalid_argument);
+}
+
+TEST(VertexMatrixConstructorTest, TestNonSquareMatrix) {
+    std::vector<std::vector<int>> adjacencyMatrix = {{1,2},{3,4},{5}};
+    EXPECT_THROW(new VertexMatrix(adjacencyMatrix), std::invalid_argument);
 }
 
 TEST_F(VertexMatrixTest, VertexMatrixGetNumVertices) {

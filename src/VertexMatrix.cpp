@@ -37,7 +37,7 @@ void VertexMatrix::initialize(std::vector<int> vertexList, std::vector<std::pair
     }
     for(auto edge: edgeList) {
         matrix[edge.first][edge.second] = 1;
-        if(!directed) {
+        if(directed) {
             matrix[edge.second][edge.first] = 1;
         }
     }

@@ -23,7 +23,7 @@ void IncidenceList::initialize(std::vector<int> vertexList, std::vector<std::pai
     }
     for(auto edge: edgeList) {
         iList[edge.first].push_back(edge.second);
-        if(!directed) {
+        if(directed) {
             iList[edge.second].push_back(edge.first);
         }
     }

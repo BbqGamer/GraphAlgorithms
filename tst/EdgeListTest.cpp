@@ -6,10 +6,10 @@ class EdgeListTest : public ::testing::Test {
  protected:
     void SetUp() override {
         std::vector<int> vertexList = {1, 2, 3, 4};
-        std::vector<std::pair<int, int> > edgeList = {{1, 2},
-                                                      {1, 3},
-                                                      {2, 4},
-                                                      {3, 4}};
+        std::vector<std::pair<int, int>> edgeList = {{1, 2},
+                                                     {1, 3},
+                                                     {2, 4},
+                                                     {3, 4}};
 
         graph = new EdgeList(vertexList, edgeList);
     }
@@ -25,8 +25,13 @@ TEST(EdgeListConstructorTest, TestEmptyConstructor) {
     delete graph;
 }
 
-TEST(EdgeListConstructorTest, TestEmptyMatrixRows) {
-    std::vector<int> vertexList = {};
-    std::vector<std::pair<int, int>> edgeList = {};
-    EXPECT_THROW(new EdgeList(vertexList, edgeList), std::invalid_argument);
+TEST_F(EdgeListTest, IncidentMatrixGetNumVertices) {
+    EXPECT_EQ(graph->getNumVertices(), 4);
+}
+
+TEST_F(EdgeListTest, TestAreNeighbors) {
+    EXPECT_EQ(graph->areNeighbors(0, 1), false);
+    EXPECT_EQ(graph->areNeighbors(1, 3), true);
+    EXPECT_EQ(graph->areNeighbors(1, 2), true);
+    EXPECT_EQ(graph->areNeighbors(4, 4), false);
 }

@@ -32,5 +32,11 @@ TEST_F(IncidenceListTest, TestAreNeighbors) {
     EXPECT_EQ(graph->areNeighbors(0, 1), true);
     EXPECT_EQ(graph->areNeighbors(1, 3), false);
     EXPECT_EQ(graph->areNeighbors(2, 3), true);
-    EXPECT_EQ(graph->areNeighbors(4, 4), false);
+    EXPECT_EQ(graph->areNeighbors(3, 3), false);
+}
+
+TEST_F(IncidenceListTest, TestAreNeighborsExpception) {
+    EXPECT_THROW(graph->areNeighbors(0, 4), std::out_of_range);
+    EXPECT_THROW(graph->areNeighbors(-420, 69), std::out_of_range);
+    EXPECT_THROW(graph->areNeighbors(2137, 666), std::out_of_range);
 }

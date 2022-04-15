@@ -5,34 +5,29 @@
 class VertexMatrixTest : public ::testing::Test {
  protected:
     void SetUp() override {
-        int a[3][3] = {{0, 1, 0},
-                       {1, 0, 1},
-                       {0, 1, 0}};
-                       
-        matrix = new int*[3];
+        std::vector<std::vector<int>> adjacencyMatrix = {{0, 1, 0},
+                                                         {0, 0, 1},
+                                                         {1, 1, 0}};
 
-        for (int i = 0; i < 3; i++) {
-            matrix[i] = new int[3];
-            for (int j = 0; j < 3; j++) {
-                matrix[i][j] = a[i][j];
-            }
-        }
-
-        graph = new VertexMatrix(matrix, 3);
+        graph = new VertexMatrix(adjacencyMatrix);
     }
-
-    void TearDown() override {
-        delete graph;
-    }
-
-    int** matrix;
     VertexMatrix* graph;
 };
 
+TEST(VertexMatrixConstructorTest, TestEmpty) {
+    VertexMatrix* graph = new VertexMatrix();
+    EXPECT_EQ(graph->getNumVertices(), 0);
+}
+
+TEST_F(VertexMatrixTest, VertexMatrixGetNumVertices) {
+    EXPECT_EQ(graph->getNumVertices(), 3);
+}
+
 TEST_F(VertexMatrixTest, TestAreNeighbors) {
     EXPECT_EQ(graph->areNeighbors(0, 1), true);
+    EXPECT_EQ(graph->areNeighbors(1, 0), false);
     EXPECT_EQ(graph->areNeighbors(1, 1), false);
-    EXPECT_EQ(graph->areNeighbors(2, 2), false);
+    EXPECT_EQ(graph->areNeighbors(1, 2), true);
 }
 
 TEST_F(VertexMatrixTest, TestAreNeighborsException) {

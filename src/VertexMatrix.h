@@ -4,17 +4,16 @@
 #include <stdexcept>
 #include "Graph.h"
 #include <iostream>
+#include <vector>
 
 class VertexMatrix : public Graph {
 
-    int** matrix;
-    int size;
+    std::vector<std::vector<int>> matrix;
 
 public:
-    VertexMatrix(): matrix{nullptr}, size(0) {};
-    VertexMatrix(int** V, int numVertices): matrix(V), size(numVertices) {};
-    ~VertexMatrix();
-
+    VertexMatrix() {};
+    VertexMatrix(std::vector<std::vector<int>> adjacencyMatrix);
+    
     bool areNeighbors(int v, int w);
     int getNumVertices();
 };

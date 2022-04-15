@@ -12,3 +12,8 @@ bool EdgeList::areNeighbors(int v, int w) {
     }
     return false;
 }
+
+void EdgeList::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList) {
+    vList = vertexList;
+    eList = edgeList;
+}

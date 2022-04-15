@@ -13,9 +13,10 @@ class VertexMatrix : public Graph {
 public:
     VertexMatrix() {};
     VertexMatrix(std::vector<std::vector<int>> adjacencyMatrix);
-    
+
     bool areNeighbors(int v, int w);
     int getNumVertices();
+    void initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList);
 };
 
 #endif

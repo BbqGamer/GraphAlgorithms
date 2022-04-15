@@ -17,5 +17,14 @@ int IncidenceList::getNumVertices() {
 }
 
 void IncidenceList::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
-    return;
+    iList = std::vector<std::vector<int>>();
+    for(int i = 0; i < vertexList.size(); i++) {
+        iList.push_back(std::vector<int>());
+    }
+    for(auto edge: edgeList) {
+        iList[edge.first].push_back(edge.second);
+        if(!directed) {
+            iList[edge.second].push_back(edge.first);
+        }
+    }
 }

@@ -32,5 +32,23 @@ int IncidentMatrix::getNumVertices() {
 }
 
 void IncidentMatrix::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
-    return;
+    matrix = std::vector<std::vector<int>>();
+    for(int i = 0; i < vertexList.size(); i++) {
+        matrix.push_back(std::vector<int>());
+    }
+    for(auto edge: edgeList) {
+        for(int i = 0; i < vertexList.size(); i++) {
+            if(i == edge.first) {
+                matrix[i].push_back(1);
+            } else if (i == edge.second) { 
+                if(directed) {
+                    matrix[i].push_back(-1);
+                } else {
+                    matrix[i].push_back(1);
+                }
+            } else {
+                matrix[i].push_back(0);
+            }
+        }
+    }
 }

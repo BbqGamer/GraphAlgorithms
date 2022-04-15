@@ -15,3 +15,7 @@ bool IncidenceList::areNeighbors(int v, int w) {
 int IncidenceList::getNumVertices() {
     return iList.size();
 }
+
+void IncidenceList::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
+    return;
+}

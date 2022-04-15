@@ -30,3 +30,7 @@ bool IncidentMatrix::areNeighbors(int v, int w) {
 int IncidentMatrix::getNumVertices() {
     return matrix.size();
 }
+
+void IncidentMatrix::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
+    return;
+}

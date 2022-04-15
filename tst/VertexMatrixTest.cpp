@@ -55,3 +55,19 @@ TEST_F(VertexMatrixTest, TestAreNeighborsException) {
     EXPECT_THROW(graph->areNeighbors(45, 6123), std::out_of_range);
     EXPECT_THROW(graph->areNeighbors(-1, 1), std::out_of_range);
 }
+
+// class VertexMatrixInitializeTest : public ::testing::Test {
+//  protected:
+//     void SetUp() override {
+//         std::vector<int> vertexList = {0,1,2};
+//         std::vector<std::parit> edgeList = {}
+//         std::vector<std::vector<int>> adjacencyMatrix = {{0, 1, 0},
+//                                                          {0, 0, 1},
+//                                                          {1, 1, 0}};
+//         graph = new VertexMatrix(adjacencyMatrix);
+//     }
+//     void TearDown() override {
+//         delete graph;
+//     }
+//     VertexMatrix* graph;
+// };

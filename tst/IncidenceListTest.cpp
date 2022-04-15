@@ -27,7 +27,7 @@ TEST_F(IncidenceListTest, TestConstructorVsInitialize) {
                                                  {2, 3},
                                                  {3, 2}};
     IncidenceList* graph1 = new IncidenceList();
-    graph1->initialize(vertexList, edgeList);
+    graph1->initialize(vertexList, edgeList, true);
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }

@@ -16,6 +16,12 @@ bool EdgeList::areNeighbors(int v, int w) {
 void EdgeList::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
     vList = vertexList;
     eList = edgeList;
+    if(!directed) {
+        std::cout <<"HI"<<std::endl;
+        for(auto edge: edgeList) {
+            eList.push_back(std::pair<int, int>(edge.second, edge.first));
+        }
+    }
 }
 
 bool EdgeList::operator==(const EdgeList &g) const {

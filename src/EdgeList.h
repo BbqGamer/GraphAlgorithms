@@ -13,8 +13,8 @@ class EdgeList : public Graph {
 
 public:
     EdgeList() {};
-    EdgeList(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList) {
-        initialize(vertexList, edgeList);
+    EdgeList(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed = 0) {
+        initialize(vertexList, edgeList, directed);
     };
 
     bool areNeighbors(int v, int w);

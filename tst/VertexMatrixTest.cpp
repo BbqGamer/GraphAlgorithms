@@ -23,7 +23,7 @@ TEST_F(VertexMatrixTest, TestConstructorVsInitialize) {
                                                  {2, 0},
                                                  {2, 1}};
     VertexMatrix* graph1 = new VertexMatrix();
-    graph1->initialize(vertexList, edgeList);
+    graph1->initialize(vertexList, edgeList, true);
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }

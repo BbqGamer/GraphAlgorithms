@@ -18,6 +18,19 @@ class IncidentMatrixTest : public ::testing::Test {
     IncidentMatrix* graph;
 };
 
+TEST(IncidentMatrixUndirectedTest, TestAreNeighbors) {
+    std::vector<int> vertexList = {0, 1, 2, 3};
+    std::vector<std::pair<int, int>> edgeList = {{0, 1},
+                                                 {0, 2},
+                                                 {1, 0},
+                                                 {2, 3}};
+    IncidentMatrix* graph = new IncidentMatrix();
+    graph->initialize(vertexList, edgeList, 0);
+    EXPECT_EQ(graph->areNeighbors(2,0), true);
+    EXPECT_EQ(graph->areNeighbors(3,2), true);
+    EXPECT_EQ(graph->areNeighbors(1,3), false);
+}
+
 TEST_F(IncidentMatrixTest, TestConstructorVsInitialize) {
     std::vector<int> vertexList = {0, 1, 2, 3};
     std::vector<std::pair<int, int>> edgeList = {{0, 1},

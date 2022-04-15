@@ -16,6 +16,19 @@ class VertexMatrixTest : public ::testing::Test {
     VertexMatrix* graph;
 };
 
+TEST(VertexMatrixUndirectedTest, TestAreNeighbors) {
+    std::vector<int> vertexList = {0, 1, 2, 3};
+    std::vector<std::pair<int, int>> edgeList = {{0, 1},
+                                                 {0, 2},
+                                                 {1, 0},
+                                                 {2, 3}};
+    VertexMatrix* graph = new VertexMatrix();
+    graph->initialize(vertexList, edgeList, 0);
+    EXPECT_EQ(graph->areNeighbors(2,0), true);
+    EXPECT_EQ(graph->areNeighbors(3,2), true);
+    EXPECT_EQ(graph->areNeighbors(1,3), false);
+}
+
 TEST_F(VertexMatrixTest, TestConstructorVsInitialize) {
     std::vector<int> vertexList = {0, 1, 2};
     std::vector<std::pair<int, int>> edgeList = {{0, 1},
@@ -27,7 +40,6 @@ TEST_F(VertexMatrixTest, TestConstructorVsInitialize) {
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }
-
 
 TEST(VertexMatrixConstructorTest, TestEmptyConstructor) {
     VertexMatrix* graph = new VertexMatrix();

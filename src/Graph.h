@@ -3,7 +3,7 @@
 
 #include<vector>
 
-class Graph {
+class GraphInterface {
 public:
     virtual bool areNeighbors(int v, int w) = 0;
     virtual int getNumVertices() = 0;

@@ -6,7 +6,7 @@
 #include <iostream>
 #include <vector>
 
-class VertexMatrix : public Graph {
+class VertexMatrix : public GraphInterface {
 
     std::vector<std::vector<int>> matrix;
 

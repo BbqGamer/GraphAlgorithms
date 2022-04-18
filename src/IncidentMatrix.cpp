@@ -31,13 +31,13 @@ int IncidentMatrix::getNumVertices() {
     return matrix.size();
 }
 
-void IncidentMatrix::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
+void IncidentMatrix::initialize(Graph g, bool directed) {
     matrix = std::vector<std::vector<int>>();
-    for(int i = 0; i < vertexList.size(); i++) {
+    for(int i = 0; i < g.vertexList.size(); i++) {
         matrix.push_back(std::vector<int>());
     }
-    for(auto edge: edgeList) {
-        for(int i = 0; i < vertexList.size(); i++) {
+    for(auto edge: g.edgeList) {
+        for(int i = 0; i < g.vertexList.size(); i++) {
             if(i == edge.first) {
                 matrix[i].push_back(1);
             } else if (i == edge.second) { 

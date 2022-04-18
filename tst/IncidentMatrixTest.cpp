@@ -24,9 +24,10 @@ TEST(IncidenctMatrix, InitializeVsConstructor) {
                                                  {0, 2},
                                                  {1, 0},
                                                  {2, 3}};
-    IncidentMatrix* graph = new IncidentMatrix(vertexList, edgeList, 1);
+    Graph g = {vertexList, edgeList};
+    IncidentMatrix* graph = new IncidentMatrix(g, 1);
     IncidentMatrix* graph1 = new IncidentMatrix();
-    graph1->initialize(vertexList, edgeList, 1);
+    graph1->initialize(g, 1);
     EXPECT_EQ(*graph, *graph1);
     delete graph;
     delete graph1;
@@ -39,7 +40,8 @@ TEST(IncidentMatrixUndirectedTest, TestAreNeighbors) {
                                                  {1, 0},
                                                  {2, 3}};
     IncidentMatrix* graph = new IncidentMatrix();
-    graph->initialize(vertexList, edgeList, 0);
+    Graph g = {vertexList, edgeList};
+    graph->initialize(g, 0);
     EXPECT_EQ(graph->areNeighbors(2,0), true);
     EXPECT_EQ(graph->areNeighbors(3,2), true);
     EXPECT_EQ(graph->areNeighbors(1,3), false);
@@ -51,7 +53,8 @@ TEST_F(IncidentMatrixTest, TestConstructorVsInitialize) {
                                                  {1, 3},
                                                  {0, 2}};
     IncidentMatrix* graph1 = new IncidentMatrix();
-    graph1->initialize(vertexList, edgeList);
+    Graph g = {vertexList, edgeList};
+    graph1->initialize(g);
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }

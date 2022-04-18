@@ -1,11 +1,11 @@
 #include "EdgeList.h"
 
 int EdgeList::getNumVertices() {
-    return vList.size();
+    return vertexList.size();
 }
 
 bool EdgeList::areNeighbors(int v, int w) {
-    for (auto edge : eList) {
+    for (auto edge : edgeList) {
         if (edge.first == v && edge.second == w) {
             return true;
         }
@@ -13,17 +13,17 @@ bool EdgeList::areNeighbors(int v, int w) {
     return false;
 }
 
-void EdgeList::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
-    vList = vertexList;
-    eList = edgeList;
+void EdgeList::initialize(Graph g, bool directed) {
+    vertexList = g.vertexList;
+    edgeList = g.edgeList;
     if(!directed) {
         std::cout <<"HI"<<std::endl;
-        for(auto edge: edgeList) {
-            eList.push_back(std::pair<int, int>(edge.second, edge.first));
+        for(auto edge: g.edgeList) {
+            edgeList.push_back(std::pair<int, int>(edge.second, edge.first));
         }
     }
 }
 
 bool EdgeList::operator==(const EdgeList &g) const {
-    return g.vList == vList && g.eList == eList;
+    return g.vertexList == vertexList && g.edgeList == edgeList;
 }

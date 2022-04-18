@@ -11,7 +11,8 @@ class EdgeListTest : public ::testing::Test {
                                                      {2, 4},
                                                      {3, 4}};
 
-        graph = new EdgeList(vertexList, edgeList, 1);
+        Graph g = {vertexList, edgeList};
+        graph = new EdgeList(g, 1);
     }
     void TearDown() override {
         delete graph;
@@ -27,7 +28,8 @@ TEST_F(EdgeListTest, TestConstructorVsInitialize) {
                                                  {3, 4}};
 
     EdgeList* graph1 = new EdgeList();
-    graph1->initialize(vertexList, edgeList, true);
+    Graph g = {vertexList, edgeList};
+    graph1->initialize(g, true);
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }

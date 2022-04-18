@@ -6,20 +6,20 @@
 #include <iostream>
 #include <vector>
 
-class EdgeList : public Graph {
+class EdgeList : public GraphInterface {
 
-    std::vector<int> vList;
-    std::vector<std::pair<int, int>> eList;
+    std::vector<int> vertexList;
+    std::vector<std::pair<int, int>> edgeList;
 
 public:
     EdgeList() {};
-    EdgeList(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed = 0) {
-        initialize(vertexList, edgeList, directed);
+    EdgeList(Graph g, bool directed = 0) {
+        initialize(g, directed);
     };
 
     bool areNeighbors(int v, int w);
     int getNumVertices();
-    void initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed = 0);
+    void initialize(Graph g, bool directed = 0);
     bool operator==(const EdgeList &g) const;
 };
 

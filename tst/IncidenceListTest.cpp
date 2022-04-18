@@ -27,7 +27,8 @@ TEST_F(IncidenceListTest, TestConstructorVsInitialize) {
                                                  {2, 3},
                                                  {3, 2}};
     IncidenceList* graph1 = new IncidenceList();
-    graph1->initialize(vertexList, edgeList, true);
+    Graph g = {vertexList, edgeList};
+    graph1->initialize(g, true);
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }
@@ -38,9 +39,10 @@ TEST(IncidenceList, InitializeVsConstructor) {
                                                  {0, 2},
                                                  {1, 0},
                                                  {2, 3}};
-    IncidenceList* graph = new IncidenceList(vertexList, edgeList, 1);
+    Graph g = {vertexList, edgeList};
+    IncidenceList* graph = new IncidenceList(g, 1);
     IncidenceList* graph1 = new IncidenceList();
-    graph1->initialize(vertexList, edgeList, 1);
+    graph1->initialize(g, 1);
     EXPECT_EQ(*graph, *graph1);
     delete graph;
     delete graph1;
@@ -53,7 +55,8 @@ TEST(IncidenceListUndirectedTest, TestAreNeighbors) {
                                                  {1, 0},
                                                  {2, 3}};
     IncidenceList* graph = new IncidenceList();
-    graph->initialize(vertexList, edgeList, 0);
+    Graph g = {vertexList, edgeList};
+    graph->initialize(g, 0);
     EXPECT_EQ(graph->areNeighbors(2,0), true);
     EXPECT_EQ(graph->areNeighbors(3,2), true);
     EXPECT_EQ(graph->areNeighbors(1,3), false);

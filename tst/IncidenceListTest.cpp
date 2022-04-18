@@ -32,6 +32,20 @@ TEST_F(IncidenceListTest, TestConstructorVsInitialize) {
     delete graph1;
 }
 
+TEST(IncidenceList, InitializeVsConstructor) {
+    std::vector<int> vertexList = {0, 1, 2, 3};
+    std::vector<std::pair<int, int>> edgeList = {{0, 1},
+                                                 {0, 2},
+                                                 {1, 0},
+                                                 {2, 3}};
+    IncidenceList* graph = new IncidenceList(vertexList, edgeList, 1);
+    IncidenceList* graph1 = new IncidenceList();
+    graph1->initialize(vertexList, edgeList, 1);
+    EXPECT_EQ(*graph, *graph1);
+    delete graph;
+    delete graph1;
+}
+
 TEST(IncidenceListUndirectedTest, TestAreNeighbors) {
     std::vector<int> vertexList = {0, 1, 2, 3};
     std::vector<std::pair<int, int>> edgeList = {{0, 1},

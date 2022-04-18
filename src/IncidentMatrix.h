@@ -13,6 +13,9 @@ class IncidentMatrix : public Graph {
 public:
     IncidentMatrix() {};
     IncidentMatrix(std::vector<std::vector<int>> incidentMatrix);
+    IncidentMatrix(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed = 0) {
+        initialize(vertexList, edgeList, directed);
+    };
 
     bool areNeighbors(int v, int w);
     int getNumVertices();

@@ -13,6 +13,9 @@ class IncidenceList : public Graph {
 public:
     IncidenceList() {};
     IncidenceList(std::vector<std::vector<int>> incidenceList): iList(incidenceList) {};
+    IncidenceList(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed = 0) {
+        initialize(vertexList, edgeList, directed);
+    };
 
     bool areNeighbors(int v, int w);
     int getNumVertices();

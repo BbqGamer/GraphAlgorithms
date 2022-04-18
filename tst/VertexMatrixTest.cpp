@@ -22,9 +22,10 @@ TEST(VertexMatrix, InitializeVsConstructor) {
                                                  {0, 2},
                                                  {1, 0},
                                                  {2, 3}};
-    VertexMatrix* graph = new VertexMatrix(vertexList, edgeList, 1);
+    Graph g = {vertexList, edgeList};
+    VertexMatrix* graph = new VertexMatrix(g, 1);
     VertexMatrix* graph1 = new VertexMatrix();
-    graph1->initialize(vertexList, edgeList, 1);
+    graph1->initialize(g, 1);
     EXPECT_EQ(*graph, *graph1);
     delete graph;
     delete graph1;
@@ -36,8 +37,9 @@ TEST(VertexMatrixUndirectedTest, TestAreNeighbors) {
                                                  {0, 2},
                                                  {1, 0},
                                                  {2, 3}};
+    Graph g = {vertexList, edgeList};
     VertexMatrix* graph = new VertexMatrix();
-    graph->initialize(vertexList, edgeList, 0);
+    graph->initialize(g, 0);
     EXPECT_EQ(graph->areNeighbors(2,0), true);
     EXPECT_EQ(graph->areNeighbors(3,2), true);
     EXPECT_EQ(graph->areNeighbors(1,3), false);
@@ -49,8 +51,9 @@ TEST_F(VertexMatrixTest, TestConstructorVsInitialize) {
                                                  {1, 2},
                                                  {2, 0},
                                                  {2, 1}};
+    Graph g = {vertexList, edgeList};
     VertexMatrix* graph1 = new VertexMatrix();
-    graph1->initialize(vertexList, edgeList, true);
+    graph1->initialize(g, true);
     EXPECT_EQ(*graph, *graph1);
     delete graph1;
 }

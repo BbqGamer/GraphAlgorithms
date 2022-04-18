@@ -26,16 +26,16 @@ int VertexMatrix::getNumVertices() {
     return matrix.size();
 }
 
-void VertexMatrix::initialize(std::vector<int> vertexList, std::vector<std::pair<int, int>> edgeList, bool directed) {
+void VertexMatrix::initialize(Graph g, bool directed) {
     matrix = std::vector<std::vector<int>>();
-    for (int i = 0; i < vertexList.size(); i++) {
+    for (int i = 0; i < g.vertexList.size(); i++) {
         std::vector<int> row;
-        for (int j = 0; j < vertexList.size(); j++) {
+        for (int j = 0; j < g.vertexList.size(); j++) {
             row.push_back(0);
         }
         matrix.push_back(row);
     }
-    for(auto edge: edgeList) {
+    for(auto edge: g.edgeList) {
         matrix[edge.first][edge.second] = 1;
         if(!directed) {
             matrix[edge.second][edge.first] = 1;

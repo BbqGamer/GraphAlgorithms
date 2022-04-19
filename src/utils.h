@@ -1,10 +1,10 @@
-#ifndef UTILS_G
-#define UTILS_G
+#ifndef UTILS_H
+#define UTILS_H
 
 #include "Graph.h"
-#include <iostream>
-#include <fstream>
+#include "includes.h"
 
 Graph readGraphFromFile(std::string fileName);
+void writeGraphToFile(std::string fileName, Graph g);
 
 #endif

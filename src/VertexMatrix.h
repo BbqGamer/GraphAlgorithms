@@ -1,10 +1,8 @@
 #ifndef VERTEXMATRIX_H
 #define VERTEXMATRIX_H
 
-#include <stdexcept>
 #include "Graph.h"
-#include <iostream>
-#include <vector>
+#include "includes.h"
 
 class VertexMatrix : public GraphInterface {
 

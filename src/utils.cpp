@@ -31,3 +31,23 @@ Graph readGraphFromFile(std::string fileName) {
     file.close();
     return g;
 }
+
+void writeGraphToFile(std::string fileName, Graph g) {
+    std::ofstream file;
+    file.open(fileName);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open file " + fileName);
+    }
+
+    file << g.vertexList.size() << std::endl;
+    for(int i = 0; i < g.vertexList.size(); i++) {
+        file << g.vertexList[i] << " ";
+    }
+    file << std::endl;
+
+    file << g.edgeList.size() << std::endl;
+    for(int i = 0; i < g.edgeList.size(); i++) {
+        file << g.edgeList[i].first << " " << g.edgeList[i].second << std::endl;
+    }
+}

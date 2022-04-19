@@ -1,10 +1,8 @@
 #ifndef INCIDENTMATRIX_H
 #define INCIDENTMATRIX_H
 
-#include <stdexcept>
+#include "includes.h"
 #include "Graph.h"
-#include <iostream>
-#include <vector>
 
 class IncidentMatrix : public GraphInterface {
 

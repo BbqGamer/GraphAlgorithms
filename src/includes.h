@@ -5,5 +5,6 @@
 #include <fstream>
 #include <vector>
 #include <stdexcept>
+#include <algorithm>
 
 #endif

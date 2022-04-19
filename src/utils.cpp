@@ -51,3 +51,25 @@ void writeGraphToFile(std::string fileName, Graph g) {
         file << g.edgeList[i].first << " " << g.edgeList[i].second << std::endl;
     }
 }
+
+Graph randomUndirectedGraph(int numVertices, double saturation) {
+    Graph g;
+    std::vector<int> vertices;
+    for(int i = 0; i < numVertices; i++) {
+        vertices.push_back(i);
+    }
+    g.vertexList = vertices;
+
+    std::vector<std::pair<int, int>> possibleEdges;
+    for(int i = 0; i < numVertices; i++) {
+        for(int j = i + 1; j < numVertices; j++) {
+            possibleEdges.push_back(std::pair<int, int>(i, j));
+        }
+    }
+
+    std::random_shuffle(possibleEdges.begin(), possibleEdges.end());
+    possibleEdges.resize((numVertices * (numVertices - 1) / 2) * saturation);
+    g.edgeList = possibleEdges;
+
+    return g;
+}

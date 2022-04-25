@@ -8,5 +8,6 @@ Graph readGraphFromFile(std::string fileName);
 void writeGraphToFile(std::string fileName, Graph g);
 
 Graph randomUndirectedGraph(int numVertices, double saturation);
+Graph randomDAC(int numVertices, double saturation);
 
 #endif

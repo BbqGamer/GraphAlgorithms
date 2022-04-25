@@ -17,7 +17,6 @@ void EdgeList::initialize(Graph g, bool directed) {
     vertexList = g.vertexList;
     edgeList = g.edgeList;
     if(!directed) {
-        std::cout <<"HI"<<std::endl;
         for(auto edge: g.edgeList) {
             edgeList.push_back(std::pair<int, int>(edge.second, edge.first));
         }

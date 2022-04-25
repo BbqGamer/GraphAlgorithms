@@ -1,14 +1,22 @@
 #include "experiments.h"
+#include <time.h>
 
 void measureLookup(GraphInterface* g, std::string file) {
+    clock_t start, end;
+    float totalTime = 0;
+
     Graph gf = readGraphFromFile(file);
     g->initialize(gf, false);
     for(int i = 0; i < g->getNumVertices(); i++) {
         for(int j = 0; j < g->getNumVertices(); j++) {
-            if(g->areNeighbors(i, j)) {
-                std::cout << "(" << i << ", " << j << ") ";
-            }
+            start = clock();
+
+            //LOOKUP
+            g->areNeighbors(i, j);
+
+            end = clock();
+            totalTime += (float)(end - start) / CLOCKS_PER_SEC / 1000;
         }
-        std::cout << std::endl;
     }
+    std::cout << "Total time: " << totalTime << " ms" << std::endl;
 }

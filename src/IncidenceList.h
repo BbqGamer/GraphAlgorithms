@@ -21,6 +21,8 @@ public:
     int getNumVertices();
     void initialize(Graph g, bool directed=0);
     bool operator==(const IncidenceList &g) const;
+
+    std::string getName() {return "Incidence List";}
 };
 
 #endif

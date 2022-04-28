@@ -1,0 +1,22 @@
+repr,n,time
+Vertex Matrix,100,0.000254131
+Incident Matrix,100,0.00319553
+Incidence List,100,0.000111138
+Edge List,100,0.0050839
+Vertex Matrix,150,9.37909e-05
+Incident Matrix,150,0.00790978
+Incidence List,150,0.000188231
+Edge List,150,0.0177337
+Vertex Matrix,200,0.000126902
+Incident Matrix,200,0.0189648
+Incidence List,200,0.000295228
+Edge List,200,0.0418817
+Vertex Matrix,250,0.000160734
+Incident Matrix,250,0.0354772
+Incidence List,250,0.000416197
+Edge List,250,0.0800923
+Vertex Matrix,300,0.000204614
+Incident Matrix,300,0.0627564
+Incidence List,300,0.000645703
+Edge List,300,0.138818
+Vertex Matrix,350,0.00021663

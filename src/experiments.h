@@ -5,6 +5,6 @@
 #include "includes.h"
 #include "utils.h"
 
-void measureLookup(GraphInterface* g, std::string file="graphs/graph.txt");
+float measureLookup(GraphInterface* g, std::string file="graphs/graph.txt");
 
 #endif

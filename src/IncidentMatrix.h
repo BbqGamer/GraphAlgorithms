@@ -19,6 +19,8 @@ public:
     int getNumVertices();
     void initialize(Graph g, bool directed = 0);
     bool operator==(const IncidentMatrix &g) const;
+
+    std::string getName() {return "Incident Matrix";}
 };
 
 #endif

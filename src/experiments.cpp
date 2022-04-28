@@ -1,7 +1,7 @@
 #include "experiments.h"
 #include <time.h>
 
-void measureLookup(GraphInterface* g, std::string file) {
+float measureLookup(GraphInterface* g, std::string file) {
     clock_t start, end;
     float totalTime = 0;
 
@@ -15,8 +15,8 @@ void measureLookup(GraphInterface* g, std::string file) {
             g->areNeighbors(i, j);
 
             end = clock();
-            totalTime += (float)(end - start) / CLOCKS_PER_SEC / 1000;
+            totalTime += (float)(end - start) / CLOCKS_PER_SEC;
         }
     }
-    std::cout << "Total time: " << totalTime << " ms" << std::endl;
+    return totalTime/(g->getNumVertices());
 }

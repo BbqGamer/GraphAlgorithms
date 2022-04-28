@@ -73,3 +73,53 @@ Graph randomUndirectedGraph(int numVertices, double saturation) {
 
     return g;
 }
+
+
+int isAcyclic(std::vector<std::pair<int, int>> &e, int edge, std::vector<bool> &visited, int v) {
+    int i, x;
+    if (visited[v]) {
+        return false;
+    } else {
+        visited[v] = true;
+        for(i = edge; i >= 0; i--) {
+            x = isAcyclic(e, edge, visited, e[i].second);
+            if (x != -1) {
+                return x;
+            }
+        }
+    }
+    visited[v] = false;
+
+    if(i == 0) {
+        return true;
+    }
+    return -1;
+}
+
+Graph randomDAC(int numVertices, double saturation) {
+    Graph g;
+    srand(time(NULL));
+    std::vector<int> vertices;
+    for(int i = 0; i < numVertices; i++) {
+        vertices.push_back(i);
+    }
+    g.vertexList = vertices;
+
+    int numEdges = (numVertices * (numVertices - 1)) / 2 * saturation;
+    std::vector<std::pair<int, int>> edges(numEdges, std::pair<int, int>(-1, -1));
+    std::vector<bool> visited(numVertices, false);
+
+    int i = 0;
+    while(i < numEdges) {
+        edges[i].first = rand() % numVertices;
+        edges[i].second = rand() % numVertices;
+        for(int j = 0; j < numVertices; j++) {
+            visited[j] = false;
+        }
+        if(isAcyclic(edges, i, visited, edges[i].first) == true) {
+            i++;
+        }
+    }
+    g.edgeList = edges;
+    return g;
+}

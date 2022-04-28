@@ -14,28 +14,35 @@
 
 int main() {
 
+
     // //GENERATE GRAPH FILES
     // for(int n = START; n <= END; n += STEP) {
     //     std::string filename = "../data/graphs/undirected-" + std::to_string(n) + ".txt";
     //     writeGraphToFile(filename, randomUndirectedGraph(n, 0.6));
     // }
 
-    std::vector<GraphInterface*> graphRepresentations = {new VertexMatrix(), new IncidentMatrix(), new IncidenceList(), new EdgeList()};
+    // std::vector<GraphInterface*> graphRepresentations = {new VertexMatrix(), new IncidentMatrix(), new IncidenceList(), new EdgeList()};
     
-    std::ofstream file;
-    file.open(OUT_FILE);
-    file << "repr,n,time" << std::endl;
+    // std::ofstream file;
+    // file.open(OUT_FILE);
+    // file << "repr,n,time" << std::endl;
 
-    float averageTime;
+    // float averageTime;
 
+    // for(int n = START; n <= END; n += STEP) {
+    //     std::string filename = "../data/graphs/undirected-" + std::to_string(n) + ".txt";
+    //     for(int i = 0; i < graphRepresentations.size(); i++) {
+
+    //         averageTime = measureLookup(graphRepresentations[i], filename);
+    //         file << graphRepresentations[i]->getName() << "," << n << "," << averageTime << std::endl;
+
+    //     }
+    // }
+
+    //GENERATE GRAPH FILES
     for(int n = START; n <= END; n += STEP) {
-        std::string filename = "../data/graphs/undirected-" + std::to_string(n) + ".txt";
-        for(int i = 0; i < graphRepresentations.size(); i++) {
-
-            averageTime = measureLookup(graphRepresentations[i], filename);
-            file << graphRepresentations[i]->getName() << "," << n << "," << averageTime << std::endl;
-
-        }
+        std::string filename = "../data/graphs/DAG-" + std::to_string(n) + ".txt";
+        writeGraphToFile(filename, randomUndirectedGraph(n, 0.95));
     }
 
     return 0;

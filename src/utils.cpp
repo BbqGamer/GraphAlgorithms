@@ -75,25 +75,26 @@ Graph randomUndirectedGraph(int numVertices, double saturation) {
 }
 
 
-int isAcyclic(std::vector<std::pair<int, int>> &e, int edge, std::vector<bool> &visited, int v) {
-    int i, x;
+int hasCycle(std::vector<std::pair<int, int>> &e, int edge, std::vector<bool> &visited, int v) {
+    int i, x, sum;
     if (visited[v]) {
-        return false;
+        return true;
     } else {
         visited[v] = true;
+        sum = 0;
         for(i = edge; i >= 0; i--) {
-            x = isAcyclic(e, edge, visited, e[i].second);
-            if (x != -1) {
-                return x;
+            if(e[i].first == v) {
+                sum += hasCycle(e, edge, visited, e[i].second);
             }
         }
     }
-    visited[v] = false;
 
-    if(i == 0) {
+    visited[v] = false;
+    if(sum == 0) {
+        return false;
+    } else {
         return true;
     }
-    return -1;
 }
 
 Graph randomDAC(int numVertices, double saturation) {
@@ -116,7 +117,7 @@ Graph randomDAC(int numVertices, double saturation) {
         for(int j = 0; j < numVertices; j++) {
             visited[j] = false;
         }
-        if(isAcyclic(edges, i, visited, edges[i].first) == true) {
+        if(!hasCycle(edges, i, visited, edges[i].first) == true) {
             i++;
         }
     }

@@ -35,3 +35,48 @@ TEST_F(FileUtilsTest, WriteGraphFile) {
     EXPECT_EQ(g.vertexList, g1.vertexList);
     EXPECT_EQ(g.edgeList, g1.edgeList);
 }
+
+TEST_F(FileUtilsTest, CyclicGraph) {
+    std::vector<bool> visited = std::vector<bool>(4, false);
+    EXPECT_EQ(hasCycle(g1.edgeList, 2, visited, g1.edgeList[2].first), 0);
+    visited = std::vector<bool>(4, false);
+    EXPECT_EQ(hasCycle(g.edgeList, 2, visited, g.edgeList[2].first), 0);
+}
+
+class CyclicTest : public ::testing::Test {
+ protected:
+    void SetUp() override {
+        edges =     {{0,1},
+                    {1,2},
+                    {2,3},
+                    {3,0}};
+
+        visited = std::vector<bool>(4, false);
+    }
+    std::vector<std::pair<int, int>> edges;
+    std::vector<bool> visited;
+};
+
+TEST_F(CyclicTest, IsCyclic) {
+    EXPECT_EQ(hasCycle(edges, 3, visited, edges[3].first), 1);
+}
+
+TEST(CycleTest, SingleEdge) {
+    std::vector<bool> visited = std::vector<bool>(4, false);
+    std::vector<std::pair<int, int>> edges = {{0,1}};
+    EXPECT_EQ(hasCycle(edges, 0, visited, edges[0].first), 0);
+}
+
+TEST(CycleTest, TwoEdgesWithCycle) {
+    std::vector<bool> visited = std::vector<bool>(4, false);
+    std::vector<std::pair<int, int>> edges = {{0,1},
+                                              {1,0}};
+    EXPECT_EQ(hasCycle(edges, 1, visited, edges[1].first), 1);
+}
+
+TEST(CycleTest, TwoEdgesNoCycle) {
+    std::vector<bool> visited = std::vector<bool>(4, false);
+    std::vector<std::pair<int, int>> edges = {{0,1},
+                                              {2,0}};
+    EXPECT_EQ(hasCycle(edges, 1, visited, edges[1].first), 0);
+}

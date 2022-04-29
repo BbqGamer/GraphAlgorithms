@@ -40,10 +40,12 @@ int main() {
     // }
 
     //GENERATE GRAPH FILES
-    for(int n = START; n <= END; n += STEP) {
-        std::string filename = "../data/graphs/DAG-" + std::to_string(n) + ".txt";
-        writeGraphToFile(filename, randomUndirectedGraph(n, 0.3));
-    }
+    // for(int n = START; n <= END; n += STEP) {
+    //     std::string filename = "../data/graphs/DAG-" + std::to_string(n) + ".txt";
+    //     writeGraphToFile(filename, randomUndirectedGraph(n, 0.6));
+    // }
+
+    graphToDot(randomDAC(10, 0.6), "../data/graphs/undirected-10.dot", 1);
 
     return 0;
 }

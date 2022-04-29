@@ -124,3 +124,28 @@ Graph randomDAC(int numVertices, double saturation) {
     g.edgeList = edges;
     return g;
 }
+
+
+void graphToDot(Graph g, std::string fileName, bool directed) {
+    std::ofstream file;
+    file.open(fileName);
+
+    if (!file.is_open()) {
+        throw std::runtime_error("Could not open file " + fileName);
+    }
+
+    std::string arc = " -- ";
+    if (directed) {
+        file << "digraph {\n";
+        arc = " -> ";
+    } else {
+        file << "graph {\n";
+        arc = " -- ";
+    }
+
+    for(int i = 0; i < g.edgeList.size(); i++) {
+        file << "\t" << g.edgeList[i].first << arc << g.edgeList[i].second << ";\n";
+    }
+
+    file << "}\n";
+}

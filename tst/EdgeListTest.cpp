@@ -12,11 +12,13 @@ class EdgeListTest : public ::testing::Test {
                                                      {3, 4}};
 
         Graph g = {vertexList, edgeList};
+        g1 = g;
         graph = new EdgeList(g, 1);
     }
     void TearDown() override {
         delete graph;
     }
+    Graph g1;
     EdgeList* graph;
 };
 
@@ -49,4 +51,10 @@ TEST_F(EdgeListTest, TestAreNeighbors) {
     EXPECT_EQ(graph->areNeighbors(1, 3), true);
     EXPECT_EQ(graph->areNeighbors(1, 2), true);
     EXPECT_EQ(graph->areNeighbors(4, 4), false);
+}
+
+TEST_F(EdgeListTest, TestDumpGraph) {
+    Graph g = graph->dumpGraph();
+    EXPECT_EQ(g.vertexList, g1.vertexList);
+    EXPECT_EQ(g.edgeList, g1.edgeList);
 }

@@ -17,7 +17,10 @@ public:
 
     bool areNeighbors(int v, int w);
     int getNumVertices();
+
     void initialize(Graph g, bool directed = 0);
+    Graph dumpGraph();
+    
     bool operator==(const IncidentMatrix &g) const;
 
     std::string getName() {return "Incident Matrix";}

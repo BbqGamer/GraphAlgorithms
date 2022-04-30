@@ -31,6 +31,18 @@ TEST(VertexMatrix, InitializeVsConstructor) {
     delete graph1;
 }
 
+TEST_F(VertexMatrixTest, DumpGraph) {
+    std::vector<int> vertexList = {0, 1, 2, 3};
+    std::vector<std::pair<int, int>> edgeList = {{0, 1},
+                                                 {0, 2},
+                                                 {1, 0},
+                                                 {2, 3}};
+    Graph g = {vertexList, edgeList};
+    Graph g1 = graph->dumpGraph();
+    EXPECT_EQ(g.vertexList, g1.vertexList);
+    EXPECT_EQ(g.edgeList, g1.edgeList);
+}
+
 TEST(VertexMatrixUndirectedTest, TestAreNeighbors) {
     std::vector<int> vertexList = {0, 1, 2, 3};
     std::vector<std::pair<int, int>> edgeList = {{0, 1},

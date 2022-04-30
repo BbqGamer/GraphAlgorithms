@@ -45,7 +45,14 @@ int main() {
     //     writeGraphToFile(filename, randomUndirectedGraph(n, 0.6));
     // }
 
-    graphToDot(randomDAC(10, 0.6), "../data/graphs/undirected-10.dot", 1);
+    //graphToDot(randomDAC(10, 0.6), "../data/graphs/undirected-10.dot", 1);
+
+    IncidenceList g;
+    g.initialize(readGraphFromFile("../data/txt/DAG-5.txt"), 1);
+    std::vector<int> order = g.topologicalSort();
+    for(auto i : order) {
+        std::cout << i << " ";
+    }
 
     return 0;
 }

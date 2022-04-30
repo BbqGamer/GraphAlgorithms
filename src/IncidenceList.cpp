@@ -47,3 +47,32 @@ Graph IncidenceList::dumpGraph() {
 bool IncidenceList::operator==(const IncidenceList &g) const {
     return g.iList == iList;
 }
+
+void IncidenceList::topsortRec(int v, std::vector<bool> &visited, std::stack<int>& s) {
+    visited[v] = true;
+    for(auto w: iList[v]) {
+        if(!visited[w]) {
+            topsortRec(w, visited, s);
+        }
+    }
+
+    s.push(v);
+}
+
+std::vector<int> IncidenceList::topologicalSort() {
+    std::stack<int> s;
+    std::vector<bool> visited = std::vector<bool>(getNumVertices(), false);
+
+    for (int i = 0; i < getNumVertices(); i++)
+        if (!visited[i]) {
+            topsortRec(i, visited, s);
+        }
+        
+    std::vector<int> topologicalOrder;
+    while(!s.empty()) {
+        topologicalOrder.push_back(s.top());
+        s.pop();
+    }
+
+    return topologicalOrder;
+}

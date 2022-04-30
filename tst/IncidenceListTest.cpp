@@ -1,6 +1,7 @@
 #include "gtest/gtest.h"
 #include "IncidenceList.h"
 #include <vector>
+#include "utils.h"
 
 class IncidenceListTest : public ::testing::Test {
  protected:
@@ -95,4 +96,10 @@ TEST_F(IncidenceListTest, TestAreNeighborsExpception) {
     EXPECT_THROW(graph->areNeighbors(0, 4), std::out_of_range);
     EXPECT_THROW(graph->areNeighbors(-420, 69), std::out_of_range);
     EXPECT_THROW(graph->areNeighbors(2137, 666), std::out_of_range);
+}
+
+TEST(TopologicalSort, TestTopologicalSort) {
+    IncidenceList graph = IncidenceList(readGraphFromFile("../tst/data/DAG-5.tst"), 1);
+    std::vector<int> expected = {5,4,2,3,1,0};
+    EXPECT_EQ(expected, graph.topologicalSort());
 }

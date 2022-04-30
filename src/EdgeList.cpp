@@ -23,6 +23,13 @@ void EdgeList::initialize(Graph g, bool directed) {
     }
 }
 
+Graph EdgeList::dumpGraph() {
+    Graph g;
+    g.vertexList = vertexList;
+    g.edgeList = edgeList;
+    return g;
+}
+
 bool EdgeList::operator==(const EdgeList &g) const {
     return g.vertexList == vertexList && g.edgeList == edgeList;
 }

@@ -43,6 +43,21 @@ void VertexMatrix::initialize(Graph g, bool directed) {
     }
 }
 
+Graph VertexMatrix::dumpGraph() {
+    Graph g;
+    for(int i = 0; i < matrix.size(); i++) {
+        g.vertexList.push_back(i);
+    }
+    for(int i = 0; i < matrix.size(); i++) {
+        for(int j = 0; j < matrix[i].size(); j++) {
+            if(matrix[i][j] == 1) {
+                g.edgeList.push_back(std::pair<int, int>(i, j));
+            }
+        }
+    }
+    return g;
+}
+
 bool VertexMatrix::operator==(const VertexMatrix &g) const {
     return g.matrix == matrix;
 }

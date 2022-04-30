@@ -29,6 +29,21 @@ void IncidenceList::initialize(Graph g, bool directed) {
     }
 }
 
+Graph IncidenceList::dumpGraph() {
+    Graph g;
+    g.vertexList = std::vector<int>();
+    for(int i = 0; i < this->getNumVertices(); i++) {
+        g.vertexList.push_back(i);
+    }
+    g.edgeList = std::vector<std::pair<int, int>>();
+    for(int i = 0; i < this->getNumVertices(); i++) {
+        for(int j = 0; j < iList[i].size(); j++) {
+            g.edgeList.push_back(std::pair<int, int>(i, iList[i][j]));
+        }
+    }
+    return g;
+}
+
 bool IncidenceList::operator==(const IncidenceList &g) const {
     return g.iList == iList;
 }

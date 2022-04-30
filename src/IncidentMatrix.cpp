@@ -53,6 +53,32 @@ void IncidentMatrix::initialize(Graph g, bool directed) {
     }
 }
 
+Graph IncidentMatrix::dumpGraph() {
+    Graph g;
+    for(int i = 0; i < matrix.size(); i++) {
+        g.vertexList.push_back(i);
+    }
+    for(int i = 0; i < matrix[0].size(); i++) {
+        int j = 0, a, b;
+        while(matrix[j][i] == 0) {
+            j++;
+        }
+        a = matrix[j][i];
+        while(matrix[j][i] == 0) {
+            j++;
+        }
+        b = matrix[j][i];
+        if(a == b == 1) {
+            g.edgeList.push_back(std::pair<int, int>(j, i));
+        } else if (a == 1 && b == -1) {
+            g.edgeList.push_back(std::pair<int, int>(j, i));
+        } else {
+            g.edgeList.push_back(std::pair<int, int>(j, i));
+        }
+    }
+    return g;
+}
+
 bool IncidentMatrix::operator==(const IncidentMatrix &g) const {
     return g.matrix == matrix;
 }

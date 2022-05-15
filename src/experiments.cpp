@@ -20,3 +20,13 @@ float measureLookup(GraphInterface* g, std::string file) {
     }
     return totalTime/(g->getNumVertices());
 }
+
+float measureTopSort(std::string file) {
+    IncidenceList graph = IncidenceList(readGraphFromFile(file), 1);
+    
+    clock_t start = clock();
+
+    graph.topologicalSort();
+
+    return (float)(clock() - start) / CLOCKS_PER_SEC;
+}

@@ -17,6 +17,7 @@ public:
 
     bool areNeighbors(int v, int w);
     int getNumVertices();
+    void addEdge(int v, int w);
 
     void initialize(Graph g, bool directed = 0);
     Graph dumpGraph();

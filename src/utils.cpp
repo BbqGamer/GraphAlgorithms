@@ -149,3 +149,42 @@ void graphToDot(Graph g, std::string fileName, bool directed) {
 
     file << "}\n";
 }
+
+//PART 2
+Graph randomConnectedGraph(int numVertices, double saturation) {
+    Graph g1 = randomSpanningTree(numVertices);
+    IncidentMatrix g = IncidentMatrix(g1);
+    graphToDot(g1, "g1.dot");
+    graphToDot(g.dumpGraph(), "g.dot");
+
+    int e = numVertices - 1;
+    int numEdges = numVertices * (numVertices - 1) * saturation;
+    while(e < numEdges) {
+        int v1 = rand() % numVertices;
+        int v2 = rand() % numVertices;
+        if(v1 != v2 && !g.areNeighbors(v1, v2)) {
+            g.addEdge(v1, v2);
+            g.addEdge(v2, v1);
+            e++;
+        }
+    }
+    return g.dumpGraph();
+}
+
+Graph randomSpanningTree(int numVertices) {
+    std::vector<int> vertices;
+    Graph g;
+    for(int i = 0; i < numVertices; i++) {
+        vertices.push_back(i);
+        g.vertexList.push_back(i);
+    }
+    std::random_shuffle(vertices.begin(), vertices.end());
+    
+    srand(time(NULL));
+    int parent;
+    for(int i = 1; i < numVertices; i++) {
+        parent = rand() % i;
+        g.edgeList.push_back(std::pair<int, int>(vertices[i], vertices[parent]));
+    }
+    return g;
+}

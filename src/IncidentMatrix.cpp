@@ -31,24 +31,28 @@ int IncidentMatrix::getNumVertices() {
     return matrix.size();
 }
 
+void IncidentMatrix::addEdge(int v, int w) {
+    if(v < getNumVertices() && w < getNumVertices() && v >= 0 && w >= 0) {
+        matrix[v][w] = 1;
+        matrix[w][v] = 1;
+    }
+    else {
+        throw std::out_of_range("Vertex out of bounds");
+    }
+}
+
 void IncidentMatrix::initialize(Graph g, bool directed) {
     matrix = std::vector<std::vector<int>>();
     for(int i = 0; i < g.vertexList.size(); i++) {
-        matrix.push_back(std::vector<int>());
+        matrix.push_back(std::vector<int>(g.vertexList.size(), 0));
     }
     for(auto edge: g.edgeList) {
-        for(int i = 0; i < g.vertexList.size(); i++) {
-            if(i == edge.first) {
-                matrix[i].push_back(1);
-            } else if (i == edge.second) { 
-                if(directed) {
-                    matrix[i].push_back(-1);
-                } else {
-                    matrix[i].push_back(1);
-                }
-            } else {
-                matrix[i].push_back(0);
-            }
+        if(!directed) {
+            matrix[edge.first][edge.second] = 1;
+            matrix[edge.second][edge.first] = 1;
+        } else {
+            matrix[edge.first][edge.second] = -1;
+            matrix[edge.second][edge.first] = 1;
         }
     }
 }
@@ -58,24 +62,14 @@ Graph IncidentMatrix::dumpGraph() {
     for(int i = 0; i < matrix.size(); i++) {
         g.vertexList.push_back(i);
     }
-    for(int i = 0; i < matrix[0].size(); i++) {
-        int j = 0, a, b;
-        while(matrix[j][i] == 0) {
-            j++;
-        }
-        a = matrix[j][i];
-        while(matrix[j][i] == 0) {
-            j++;
-        }
-        b = matrix[j][i];
-        if(a == b == 1) {
-            g.edgeList.push_back(std::pair<int, int>(j, i));
-        } else if (a == 1 && b == -1) {
-            g.edgeList.push_back(std::pair<int, int>(j, i));
-        } else {
-            g.edgeList.push_back(std::pair<int, int>(j, i));
+    for(int i = 0; i < matrix.size(); i++) {
+        for(int j = i + 1; j < matrix.size(); j++) {
+            if(matrix[i][j] == 1) {
+                g.edgeList.push_back(std::pair<int, int>(i, j));
+            }
         }
     }
+
     return g;
 }
 

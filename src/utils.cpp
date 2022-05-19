@@ -154,11 +154,9 @@ void graphToDot(Graph g, std::string fileName, bool directed) {
 Graph randomConnectedGraph(int numVertices, double saturation) {
     Graph g1 = randomSpanningTree(numVertices);
     IncidentMatrix g = IncidentMatrix(g1);
-    graphToDot(g1, "g1.dot");
-    graphToDot(g.dumpGraph(), "g.dot");
 
     int e = numVertices - 1;
-    int numEdges = numVertices * (numVertices - 1) * saturation;
+    int numEdges = numVertices * (numVertices - 1) * saturation / 2;
     while(e < numEdges) {
         int v1 = rand() % numVertices;
         int v2 = rand() % numVertices;
@@ -187,4 +185,65 @@ Graph randomSpanningTree(int numVertices) {
         g.edgeList.push_back(std::pair<int, int>(vertices[i], vertices[parent]));
     }
     return g;
+}
+
+Graph randomEulerian(int numVertices, int saturation) {
+    IncidenceList g = IncidenceList(randomConnectedGraph(numVertices, saturation));
+    std::vector<int> oddVertices;
+    std::vector<int> evenVertices;
+    for(int i = 0; i < g.getNumVertices(); i++) {
+        if(g.getNumEdges(i) % 2 == 1) {
+            oddVertices.push_back(i);
+        } else {
+            evenVertices.push_back(i);
+        }    
+    }
+    int numEdges = numVertices * (numVertices - 1) * saturation / 2;
+
+    while(oddVertices.size()) {
+        //Choose two random odd vertices
+        int v1 = oddVertices[rand() % oddVertices.size()];
+        int v2 = oddVertices[rand() % oddVertices.size()];
+        if(g.areNeighbors(v1, v2)) {
+            //TODO
+        }
+    }
+    
+    return g.dumpGraph();
+}
+
+Graph randomHamiltonianGraph(int numVertices, int saturation) {
+    Graph g1 = randomSpanningTree(numVertices);
+    IncidentMatrix g = IncidentMatrix(g1);
+
+    int expected_number_of_edges = numVertices * (numVertices - 1) * saturation / 2;
+    int numEdges = numVertices - 1;
+    
+    std::vector<int> path;
+    for(int i = 0; i < numVertices; i++) {
+        path.push_back(i);
+    }
+
+    //ADD PATH
+    std::random_shuffle(path.begin(), path.end());
+    for(int i = 0; i < numVertices - 1; i++) {
+        g.addEdge(path[i], path[i + 1]);
+        g.addEdge(path[i + 1], path[i]);
+        numEdges += 1;
+    }
+
+    int v1;
+    int v2;
+    //ADD REMAINING EDGES
+    while(numEdges < expected_number_of_edges) {
+        v1 = rand() % numVertices;
+        v2 = rand() % numVertices;
+        if(v1 != v2 && !g.areNeighbors(v1, v2)) {
+            g.addEdge(v1, v2);
+            g.addEdge(v2, v1);
+            numEdges += 1;
+        }
+    }
+
+    return g.dumpGraph();
 }

@@ -63,7 +63,7 @@ int main() {
     //EXP 2
     //generateGraphs(100, 2000, 100, 0.3, 1);
     //exp2(100, 2000, 100);
-    graphToDot(randomConnectedGraph(30, 0.05), "../data/dot/connected.dot", 0);
+    graphToDot(randomHamiltonianGraph(100, 0.5), "../data/dot/hamilton.dot", 0);
     
     return 0;
 }

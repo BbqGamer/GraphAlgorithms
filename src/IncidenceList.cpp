@@ -16,6 +16,10 @@ int IncidenceList::getNumVertices() {
     return iList.size();
 }
 
+int IncidenceList::getNumEdges(int v) {
+    return iList[v].size();
+}
+
 void IncidenceList::initialize(Graph g, bool directed) {
     iList = std::vector<std::vector<int>>();
     for(int i = 0; i < g.vertexList.size(); i++) {

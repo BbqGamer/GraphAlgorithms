@@ -4,6 +4,7 @@
 #include "Graph.h"
 #include "includes.h"
 #include "IncidentMatrix.h"
+#include "IncidenceList.h"
 
 Graph readGraphFromFile(std::string fileName);
 void writeGraphToFile(std::string fileName, Graph g);
@@ -17,5 +18,7 @@ int hasCycle(std::vector<std::pair<int, int>> &e, int edge, std::vector<bool> &v
 //PART 2
 Graph randomConnectedGraph(int numVertices, double saturation);
 Graph randomSpanningTree(int numVertices);
+Graph randomEulerian(int numVertices, int saturation);
+Graph randomHamiltonianGraph(int numVertices, int saturation);
 
 #endif

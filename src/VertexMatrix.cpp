@@ -15,6 +15,11 @@ VertexMatrix::VertexMatrix(std::vector<std::vector<int>> adjacencyMatrix) {
     matrix = adjacencyMatrix;
 };
 
+void VertexMatrix::addEdge(int v1, int v2) {
+    matrix[v1][v2] = 1;
+    matrix[v2][v1] = 1;
+}
+
 bool VertexMatrix::areNeighbors(int v, int w) {
     if(v < getNumVertices() && w < getNumVertices() && v >= 0 && w >= 0) {
         return matrix[v][w] == 1;
@@ -49,7 +54,7 @@ Graph VertexMatrix::dumpGraph() {
         g.vertexList.push_back(i);
     }
     for(int i = 0; i < matrix.size(); i++) {
-        for(int j = 0; j < matrix[i].size(); j++) {
+        for(int j = i + 1; j < matrix[i].size(); j++) {
             if(matrix[i][j] == 1) {
                 g.edgeList.push_back(std::pair<int, int>(i, j));
             }

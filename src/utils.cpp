@@ -153,7 +153,7 @@ void graphToDot(Graph g, std::string fileName, bool directed) {
 //PART 2
 Graph randomConnectedGraph(int numVertices, double saturation) {
     Graph g1 = randomSpanningTree(numVertices);
-    IncidentMatrix g = IncidentMatrix(g1);
+    VertexMatrix g = VertexMatrix(g1);
 
     int e = numVertices - 1;
     int numEdges = numVertices * (numVertices - 1) * saturation / 2;
@@ -162,7 +162,6 @@ Graph randomConnectedGraph(int numVertices, double saturation) {
         int v2 = rand() % numVertices;
         if(v1 != v2 && !g.areNeighbors(v1, v2)) {
             g.addEdge(v1, v2);
-            g.addEdge(v2, v1);
             e++;
         }
     }
@@ -187,61 +186,46 @@ Graph randomSpanningTree(int numVertices) {
     return g;
 }
 
-Graph randomEulerian(int numVertices, int saturation) {
-    IncidenceList g = IncidenceList(randomConnectedGraph(numVertices, saturation));
-    std::vector<int> oddVertices;
-    std::vector<int> evenVertices;
-    for(int i = 0; i < g.getNumVertices(); i++) {
-        if(g.getNumEdges(i) % 2 == 1) {
-            oddVertices.push_back(i);
-        } else {
-            evenVertices.push_back(i);
-        }    
-    }
-    int numEdges = numVertices * (numVertices - 1) * saturation / 2;
 
-    while(oddVertices.size()) {
-        //Choose two random odd vertices
-        int v1 = oddVertices[rand() % oddVertices.size()];
-        int v2 = oddVertices[rand() % oddVertices.size()];
-        if(g.areNeighbors(v1, v2)) {
-            //TODO
-        }
-    }
-    
-    return g.dumpGraph();
-}
-
-Graph randomHamiltonianGraph(int numVertices, int saturation) {
-    Graph g1 = randomSpanningTree(numVertices);
-    IncidentMatrix g = IncidentMatrix(g1);
-
-    int expected_number_of_edges = numVertices * (numVertices - 1) * saturation / 2;
-    int numEdges = numVertices - 1;
-    
-    std::vector<int> path;
+Graph randomGraphWithCycles(int numVertices, double saturation) {
+    std::vector<int> vertices;
     for(int i = 0; i < numVertices; i++) {
-        path.push_back(i);
-    }
+        vertices.push_back(i);
+    }    
 
-    //ADD PATH
-    std::random_shuffle(path.begin(), path.end());
+    std::vector<std::pair<int, int>> edges = std::vector<std::pair<int, int>>();
+    Graph g1;
+    g1.vertexList = vertices;
+    g1.edgeList = edges;
+
+    VertexMatrix g = VertexMatrix(g1);
+
+    int expected_number_of_edges = saturation * (numVertices * (numVertices - 1) / 2);
+    int numEdges = numVertices;
+    
+    //ADD Hamiltonian cycle
+    std::random_shuffle(vertices.begin(), vertices.end());
     for(int i = 0; i < numVertices - 1; i++) {
-        g.addEdge(path[i], path[i + 1]);
-        g.addEdge(path[i + 1], path[i]);
-        numEdges += 1;
+        g.addEdge(vertices[i], vertices[i + 1]);
     }
+    g.addEdge(vertices[numVertices - 1], vertices[0]);
 
-    int v1;
-    int v2;
-    //ADD REMAINING EDGES
+    int v1, v2, v3;
+    std::cout << expected_number_of_edges << std::endl;
+    //ADD REMAINING EDGES while preserving eulerian cycle conditions
     while(numEdges < expected_number_of_edges) {
         v1 = rand() % numVertices;
         v2 = rand() % numVertices;
-        if(v1 != v2 && !g.areNeighbors(v1, v2)) {
-            g.addEdge(v1, v2);
-            g.addEdge(v2, v1);
-            numEdges += 1;
+        v3 = rand() % numVertices;
+        if(v1 != v2 && v2 != v3 && v3 != v1
+            && !g.areNeighbors(v1, v2)
+            && !g.areNeighbors(v2, v3)
+            && !g.areNeighbors(v3, v1)
+            ) {
+                g.addEdge(v1, v2);
+                g.addEdge(v2, v3);
+                g.addEdge(v3, v1);
+                numEdges += 3;
         }
     }
 

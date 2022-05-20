@@ -20,6 +20,10 @@ int IncidenceList::getNumEdges(int v) {
     return iList[v].size();
 }
 
+std::vector<int> IncidenceList::getNeighbours(int vertex) {
+    return iList[vertex];
+}
+
 void IncidenceList::initialize(Graph g, bool directed) {
     iList = std::vector<std::vector<int>>();
     for(int i = 0; i < g.vertexList.size(); i++) {

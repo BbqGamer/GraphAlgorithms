@@ -63,7 +63,11 @@ int main() {
     //EXP 2
     //generateGraphs(100, 2000, 100, 0.3, 1);
     //exp2(100, 2000, 100);
-    graphToDot(randomGraphWithCycles(6, 0.6), "../data/dot/hamilton.dot", 0);
+    Graph g = randomGraphWithCycles(6, 0.3);
+    graphToDot(g , "../data/dot/hamilton.dot", 0);
+    for(auto a : findEulerianCycle(g)) {
+        std::cout << a << " ";
+    }
     
     return 0;
 }

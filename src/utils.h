@@ -21,4 +21,7 @@ Graph randomConnectedGraph(int numVertices, double saturation);
 Graph randomSpanningTree(int numVertices);
 Graph randomGraphWithCycles(int numVertices, double saturation);
 
+std::vector<int> findHamiltonianCycle(Graph graph);
+std::vector<int> findEulerianCycle(Graph graph);
+
 #endif

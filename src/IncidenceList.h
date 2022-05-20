@@ -23,6 +23,9 @@ public:
     int getNumVertices();
     int getNumEdges(int v);
     std::vector<int> getNeighbours(int vertex);
+    int popNeighbor(int vertex);
+
+    void removeEdge(int v, int w);
     
     void initialize(Graph g, bool directed=0);
     Graph dumpGraph();

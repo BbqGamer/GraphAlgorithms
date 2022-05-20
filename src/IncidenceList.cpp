@@ -24,6 +24,28 @@ std::vector<int> IncidenceList::getNeighbours(int vertex) {
     return iList[vertex];
 }
 
+int IncidenceList::popNeighbor(int vertex) {
+    int v = iList[vertex][0];
+    this->removeEdge(vertex, v);
+    return v;
+}
+
+void IncidenceList::removeEdge(int v, int w) {
+    for(int i = 0; i < iList[v].size(); i++) {
+        if(iList[v][i] == w) {
+            iList[v].erase(iList[v].begin() + i);
+            break;
+        }
+    }
+
+    for(int i = 0; i < iList[w].size(); i++) {
+        if(iList[w][i] == v) {
+            iList[w].erase(iList[w].begin() + i);
+            break;
+        }
+    }
+}
+
 void IncidenceList::initialize(Graph g, bool directed) {
     iList = std::vector<std::vector<int>>();
     for(int i = 0; i < g.vertexList.size(); i++) {

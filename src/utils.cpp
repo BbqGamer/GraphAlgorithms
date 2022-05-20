@@ -211,7 +211,6 @@ Graph randomGraphWithCycles(int numVertices, double saturation) {
     g.addEdge(vertices[numVertices - 1], vertices[0]);
 
     int v1, v2, v3;
-    std::cout << expected_number_of_edges << std::endl;
     //ADD REMAINING EDGES while preserving eulerian cycle conditions
     while(numEdges < expected_number_of_edges) {
         v1 = rand() % numVertices;
@@ -230,4 +229,24 @@ Graph randomGraphWithCycles(int numVertices, double saturation) {
     }
 
     return g.dumpGraph();
+}
+
+
+std::vector<int> findEulerianCycle(Graph graph) {
+    IncidenceList g = IncidenceList(graph);
+
+    int n;
+    std::vector<int> cycle;
+    std::stack<int> s;
+    s.push(0);
+    while(!s.empty()) {
+        if(g.getNumEdges(s.top())) {
+            s.push(g.popNeighbor(s.top()));
+        } else {
+            cycle.push_back(s.top());
+            s.pop();            
+        }
+    }
+
+    return cycle;
 }

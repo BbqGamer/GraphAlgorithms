@@ -20,7 +20,7 @@ int IncidenceList::getNumEdges(int v) {
     return iList[v].size();
 }
 
-std::vector<int> IncidenceList::getNeighbours(int vertex) {
+std::vector<int>& IncidenceList::getNeighbours(int vertex) {
     return iList[vertex];
 }
 

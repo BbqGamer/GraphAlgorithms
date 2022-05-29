@@ -5,3 +5,4 @@ build/*
 *.png
 googletest
 !.gitkeep
+*.csv

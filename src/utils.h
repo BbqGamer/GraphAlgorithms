@@ -19,9 +19,13 @@ int hasCycle(std::vector<std::pair<int, int>> &e, int edge, std::vector<bool> &v
 //PART 2
 Graph randomConnectedGraph(int numVertices, double saturation);
 Graph randomSpanningTree(int numVertices);
-Graph randomGraphWithCycles(int numVertices, double saturation);
+Graph randomEulerianGraph(int numVertices, double saturation);
+Graph randomHamiltonianGraph(int numVertices, double saturation);
 
-std::vector<int> findHamiltonianCycle(Graph graph);
 std::vector<int> findEulerianCycle(Graph graph);
+std::vector<int> findHamiltonianCycle(Graph graph);
+bool backtrackingHamiltonian(IncidenceList& graph, std::vector<int>& path);
+std::vector<int> findHamiltonianCycle_wrapper(Graph graph);
+
 
 #endif

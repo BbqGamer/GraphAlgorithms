@@ -22,7 +22,7 @@ public:
     bool areNeighbors(int v, int w);
     int getNumVertices();
     int getNumEdges(int v);
-    std::vector<int> getNeighbours(int vertex);
+    std::vector<int>& getNeighbours(int vertex);
     int popNeighbor(int vertex);
 
     void removeEdge(int v, int w);

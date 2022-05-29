@@ -1,4 +1,9 @@
 #include "utils.h"
+#include <iostream>
+#include <chrono>
+#include <thread>
+#include <mutex>
+#include <condition_variable>
 
 Graph readGraphFromFile(std::string fileName) {
     std::ifstream file;
@@ -50,6 +55,8 @@ void writeGraphToFile(std::string fileName, Graph g) {
     for(int i = 0; i < g.edgeList.size(); i++) {
         file << g.edgeList[i].first << " " << g.edgeList[i].second << std::endl;
     }
+    
+    file.close();
 }
 
 Graph randomUndirectedGraph(int numVertices, double saturation) {
@@ -148,6 +155,7 @@ void graphToDot(Graph g, std::string fileName, bool directed) {
     }
 
     file << "}\n";
+    file.close();
 }
 
 //PART 2
@@ -186,32 +194,18 @@ Graph randomSpanningTree(int numVertices) {
     return g;
 }
 
-
-Graph randomGraphWithCycles(int numVertices, double saturation) {
-    std::vector<int> vertices;
-    for(int i = 0; i < numVertices; i++) {
-        vertices.push_back(i);
-    }    
-
-    std::vector<std::pair<int, int>> edges = std::vector<std::pair<int, int>>();
-    Graph g1;
-    g1.vertexList = vertices;
-    g1.edgeList = edges;
-
-    VertexMatrix g = VertexMatrix(g1);
+#define EULER_TIMEOUT 100
+Graph randomEulerianGraph(int numVertices, double saturation) {
+    VertexMatrix g = VertexMatrix(randomSpanningTree(numVertices));
 
     int expected_number_of_edges = saturation * (numVertices * (numVertices - 1) / 2);
     int numEdges = numVertices;
-    
-    //ADD Hamiltonian cycle
-    std::random_shuffle(vertices.begin(), vertices.end());
-    for(int i = 0; i < numVertices - 1; i++) {
-        g.addEdge(vertices[i], vertices[i + 1]);
-    }
-    g.addEdge(vertices[numVertices - 1], vertices[0]);
 
     int v1, v2, v3;
     //ADD REMAINING EDGES while preserving eulerian cycle conditions
+    
+    time_t start = clock();
+
     while(numEdges < expected_number_of_edges) {
         v1 = rand() % numVertices;
         v2 = rand() % numVertices;
@@ -226,8 +220,50 @@ Graph randomGraphWithCycles(int numVertices, double saturation) {
                 g.addEdge(v3, v1);
                 numEdges += 3;
         }
+        if(float(clock() - start) / CLOCKS_PER_SEC > EULER_TIMEOUT) {
+            std::cout << "TIMEOUT in Euler cycle creation" << std::endl;
+            break;
+        }
     }
 
+    return g.dumpGraph();
+}
+
+Graph randomHamiltonianGraph(int numVertices, double saturation) {
+    std::vector<int> vertices;
+    for(int i = 0; i < numVertices; i++) {
+        vertices.push_back(i);
+    }
+
+    Graph G;
+    G.vertexList = vertices;
+    G.edgeList = std::vector<std::pair<int, int>>();
+    VertexMatrix g = VertexMatrix(G);
+
+    //ADD HAMILTON PATH
+    std::cout << "  Adding hamiltonian path" << std::endl;
+    std::random_shuffle(vertices.begin(), vertices.end());
+    for(int i = 0; i < numVertices - 1; i++) {
+        g.addEdge(vertices[i], vertices[i + 1]);
+    }
+    g.addEdge(vertices[numVertices - 1], vertices[0]);
+
+    int expected_number_of_edges = saturation * (numVertices * (numVertices - 1) / 2);
+    int numEdges = numVertices;
+
+    int v1, v2;
+    //ADD REMAINING EDGES
+    std::cout << "  Adding remaining edges" << std::endl;
+    while(numEdges < expected_number_of_edges) {
+        v1 = rand() % numVertices;
+        v2 = rand() % numVertices;
+        if(v1 != v2 && !g.areNeighbors(v1, v2)) {
+            g.addEdge(v1, v2);
+            numEdges++;
+        }
+    }
+    
+    std::cout << "  Dumping graph" << std::endl;
     return g.dumpGraph();
 }
 
@@ -249,4 +285,61 @@ std::vector<int> findEulerianCycle(Graph graph) {
     }
 
     return cycle;
+}
+
+
+std::vector<int> findHamiltonianCycle_wrapper(Graph graph) {
+
+    std::mutex m;
+    std::condition_variable cv;
+    std::vector<int> retValue;
+
+    std::thread t([&cv, &retValue, &graph]()
+    {
+        retValue = findHamiltonianCycle(graph);
+        cv.notify_one();
+    });
+
+    t.detach();
+
+    {
+        std::chrono::seconds TIMEOUT(300);
+        std::unique_lock<std::mutex> l(m);
+        if(cv.wait_for(l, TIMEOUT) == std::cv_status::timeout) 
+            throw std::runtime_error("Timeout");
+    }
+
+    return retValue; 
+}
+
+std::vector<int> findHamiltonianCycle(Graph graph) {
+    IncidenceList g = IncidenceList(graph);
+    std::vector<int> path;
+    path.push_back(0);
+
+    if(backtrackingHamiltonian(g, path)) {
+        path.push_back(0);
+        return path;
+    } else {
+        return std::vector<int>();
+    }
+}
+
+bool backtrackingHamiltonian(IncidenceList& graph, std::vector<int>& path) {
+    int u = path[path.size() - 1];
+    if(path.size() == graph.getNumVertices()) {
+        int v = path[0];
+        if(graph.areNeighbors(u, v))
+            return true;
+        return false;
+    }
+    for(auto v : graph.getNeighbours(u)) {
+        if(std::find(path.begin(), path.end(), v) == path.end()) {
+            path.push_back(v);
+            if(backtrackingHamiltonian(graph, path))
+                return true;
+            path.pop_back();
+        }
+    }
+    return false;
 }

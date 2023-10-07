@@ -1,6 +1,6 @@
 # Graph representations
-In this project I implemented topological sort using multiple Graph representations.
-[See report comparing pros and cons of each graph representation](https://github.com/BbqGamer/GraphAlgorithms/blob/master/report/Report_Graph_Algorithms.pdf)
+In this project I implemented topological sort using multiple Graph representations. \
+[**See report comparing pros and cons of each graph representation**](https://github.com/BbqGamer/GraphAlgorithms/blob/master/report/Report_Graph_Algorithms.pdf)
 
 ## Configuration:
 After cloning the repository you should also clone gtest which this project depends on:
